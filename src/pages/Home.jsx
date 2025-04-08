@@ -156,12 +156,7 @@ const Home = () => {
                   title: "Instant Communication",
                   desc: "Connect directly with owners or tenants through WhatsApp or call instantly from the app.",
                   icon: <FaComments className="text-3xl text-[#FFD700]" />,
-                },
-                {
-                  title: "Transparent Process",
-                  desc: "No hidden fees or middlemen. See exactly what you're getting before you commit.",
-                  icon: <FaEye className="text-3xl text-[#FFD700]" />,
-                },
+                }
               ].map((feature, i) => (
                 <motion.div
                   key={i}
