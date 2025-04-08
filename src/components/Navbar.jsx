@@ -9,14 +9,12 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userRole, setUserRole] = useState(null); // if needed from custom claims
+  const [userRole, setUserRole] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setIsLoggedIn(true);
-
-        // optional: get custom claims for role
         const tokenResult = await user.getIdTokenResult();
         setUserRole(tokenResult.claims.role || null);
       } else {
@@ -24,7 +22,6 @@ const Navbar = () => {
         setUserRole(null);
       }
     });
-
     return () => unsubscribe();
   }, []);
 
@@ -48,10 +45,12 @@ const Navbar = () => {
 
   const navLinks = [
     { path: "/properties", label: "Properties" },
-    isLoggedIn
-      ? { path: null, label: "Logout", action: handleLogout }
-      : { path: "/login", label: "Login" },
+    { path: "/contact", label: "Contact us" },
   ];
+
+  const authLink = isLoggedIn
+    ? { label: "Logout", action: handleLogout }
+    : { path: "/login", label: "Login" };
 
   return (
     <nav
@@ -68,28 +67,35 @@ const Navbar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-8">
+          <div className="hidden md:flex space-x-8 items-center">
             {navLinks.map((link) => (
-              <div key={link.label} className="relative">
-                {link.path ? (
-                  <Link
-                    to={link.path}
-                    className={`text-white text-lg font-medium ${
-                      location.pathname === link.path ? "text-[#FFD700]" : ""
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
-                ) : (
-                  <button
-                    onClick={link.action}
-                    className="text-white text-lg font-medium"
-                  >
-                    {link.label}
-                  </button>
-                )}
-              </div>
+              <Link
+                key={link.label}
+                to={link.path}
+                className={`text-white text-lg font-medium ${
+                  location.pathname === link.path ? "text-[#FFD700]" : ""
+                }`}
+              >
+                {link.label}
+              </Link>
             ))}
+            {authLink.path ? (
+              <Link
+                to={authLink.path}
+                className={`text-white text-lg font-medium ${
+                  location.pathname === authLink.path ? "text-[#FFD700]" : ""
+                }`}
+              >
+                {authLink.label}
+              </Link>
+            ) : (
+              <button
+                onClick={authLink.action}
+                className="text-white text-lg font-medium"
+              >
+                {authLink.label}
+              </button>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -132,33 +138,41 @@ const Navbar = () => {
       >
         <div className="px-2 pt-2 pb-4 space-y-2">
           {navLinks.map((link) => (
-            <div
-              key={link.label}
-              className="px-3 py-2 rounded-md hover:bg-gray-800"
-            >
-              {link.path ? (
-                <Link
-                  to={link.path}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`block text-white text-lg ${
-                    location.pathname === link.path ? "text-[#FFD700]" : ""
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ) : (
-                <button
-                  onClick={() => {
-                    link.action();
-                    setIsMenuOpen(false);
-                  }}
-                  className="block text-white text-lg w-full text-left"
-                >
-                  {link.label}
-                </button>
-              )}
+            <div key={link.label} className="px-3 py-2 rounded-md hover:bg-gray-800">
+              <Link
+                to={link.path}
+                onClick={() => setIsMenuOpen(false)}
+                className={`block text-white text-lg ${
+                  location.pathname === link.path ? "text-[#FFD700]" : ""
+                }`}
+              >
+                {link.label}
+              </Link>
             </div>
           ))}
+          <div className="px-3 py-2 rounded-md hover:bg-gray-800">
+            {authLink.path ? (
+              <Link
+                to={authLink.path}
+                onClick={() => setIsMenuOpen(false)}
+                className={`block text-white text-lg ${
+                  location.pathname === authLink.path ? "text-[#FFD700]" : ""
+                }`}
+              >
+                {authLink.label}
+              </Link>
+            ) : (
+              <button
+                onClick={() => {
+                  authLink.action();
+                  setIsMenuOpen(false);
+                }}
+                className="block text-white text-lg w-full text-left"
+              >
+                {authLink.label}
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </nav>
