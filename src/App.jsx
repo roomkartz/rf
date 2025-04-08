@@ -12,6 +12,8 @@ import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import './index.css';
 import OwnerAuth from "./pages/OwnerAuth";
+import ContactUs from "./pages/ContactUs";
+
 
 // ✅ ProtectedRoute component
 const ProtectedRoute = ({ allowedRole, children }) => {
@@ -27,6 +29,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/properties" element={<PropertyList />} />
         <Route path="/properties/:id" element={<PropertyDetails />} />
+        <Route path="/contact" element={<ContactUs />} />
         
         {/* ✅ Protected Broker-only routes */}
         <Route
