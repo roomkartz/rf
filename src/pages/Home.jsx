@@ -19,7 +19,7 @@ const Home = () => {
 
     const fetchProperties = async () => {
       try {
-        const res = await fetch("http://localhost:5005/api/users/properties");
+        const res = await fetch("https://www.roomkartz.com/api/users/properties");
         const data = await res.json();
         setProperties(data);  // Update this if your API response is nested
       } catch (err) {
