@@ -10,10 +10,9 @@ import AddProperty from "./pages/AddProperty";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
-import './index.css';
+import "./index.css";
 import OwnerAuth from "./pages/OwnerAuth";
 import ContactUs from "./pages/ContactUs";
-
 
 // ✅ ProtectedRoute component
 const ProtectedRoute = ({ allowedRole, children }) => {
@@ -25,17 +24,16 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/admin/properties" element={<Properties />} />
         <Route path="/" element={<Home />} />
         <Route path="/properties" element={<PropertyList />} />
         <Route path="/properties/:id" element={<PropertyDetails />} />
         <Route path="/contact" element={<ContactUs />} />
-        
-        {/* ✅ Protected Broker-only routes */}
+
+        {/* ✅ Owner protected routes */}
         <Route
           path="/owner"
           element={
-            <ProtectedRoute allowedRole="Broker">
+            <ProtectedRoute allowedRole="owner">
               <OwnerDashboard />
             </ProtectedRoute>
           }
@@ -43,7 +41,7 @@ function App() {
         <Route
           path="/owner/properties"
           element={
-            <ProtectedRoute allowedRole="Broker">
+            <ProtectedRoute allowedRole="owner">
               <OwnerProperties />
             </ProtectedRoute>
           }
@@ -51,12 +49,13 @@ function App() {
         <Route
           path="/owner/add-property"
           element={
-            <ProtectedRoute allowedRole="Broker">
+            <ProtectedRoute allowedRole="owner">
               <AddProperty />
             </ProtectedRoute>
           }
         />
 
+        {/* Public auth pages */}
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
