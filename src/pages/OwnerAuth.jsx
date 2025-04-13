@@ -44,7 +44,7 @@ const OwnerLogin = () => {
       const user = result.user;
 
       // Save only owner in MongoDB
-      await axios.post("https://rb-gnyh.onrender.com/api/users/owners", {
+      await axios.post("https://rb-gnyh.onrender.com/api/users/owner", {
         uid: user.uid,
         phoneNumber: user.phoneNumber,
         role: "owner",
