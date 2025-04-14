@@ -17,7 +17,7 @@ import ContactUs from "./pages/ContactUs";
 // ✅ ProtectedRoute component
 const ProtectedRoute = ({ allowedRole, children }) => {
   const userRole = localStorage.getItem("role");
-  return userRole === allowedRole ? children : <Login />;
+  return userRole === allowedRole ? children : <OwnerAuth />;
 };
 
 function App() {
