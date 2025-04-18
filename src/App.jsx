@@ -1,6 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
-import Properties from "./pages/Properties";
 import Home from "./pages/Home";
 import PropertyList from "./pages/PropertyList";
 import PropertyDetails from "./pages/PropertyDetails";
@@ -13,11 +11,11 @@ import ForgotPassword from "./pages/ForgotPassword";
 import "./index.css";
 import OwnerAuth from "./pages/OwnerAuth";
 import ContactUs from "./pages/ContactUs";
+import { Navigate } from "react-router-dom";
 
-// ✅ ProtectedRoute component
 const ProtectedRoute = ({ allowedRole, children }) => {
   const userRole = localStorage.getItem("role");
-  return userRole === allowedRole ? children : <OwnerAuth />;
+  return userRole === allowedRole ? children : <Navigate to="/ologin" />;
 };
 
 function App() {

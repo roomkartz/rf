@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { auth } from "../firebase";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const OwnerLogin = () => {
+  const navigate = useNavigate();
   const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
   const [confirmation, setConfirmation] = useState(null);
@@ -51,7 +53,8 @@ const OwnerLogin = () => {
       });
 
       localStorage.setItem("uid", user.uid);
-      window.location.href = "/owner"; // redirect after login
+      localStorage.setItem("role", "owner");
+      navigate("/owner");
     } catch (err) {
       setError("Invalid OTP or error occurred");
     } finally {
