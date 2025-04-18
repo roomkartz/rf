@@ -205,7 +205,7 @@ const Home = () => {
                 },
                 {
                   quote: "No more dealing with brokers. Direct communication saved me time and money.",
-                  author: "Michael T.",
+                  author: "Abhay K.",
                   role: "Professional",
                   rating: 4,
                 },
