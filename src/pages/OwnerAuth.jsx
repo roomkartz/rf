@@ -51,7 +51,7 @@ const OwnerLogin = () => {
       });
 
       localStorage.setItem("uid", user.uid);
-      window.location.href = "/owner-dashboard"; // redirect after login
+      window.location.href = "/owner"; // redirect after login
     } catch (err) {
       setError("Invalid OTP or error occurred");
     } finally {
